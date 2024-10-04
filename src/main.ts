@@ -10,6 +10,7 @@ const AZURE_OPENAI_ENDPOINT: string = core.getInput('AZURE_OPENAI_ENDPOINT');
 const AZURE_OPENAI_API_KEY: string = core.getInput('AZURE_OPENAI_API_KEY');
 const AZURE_OPENAI_API_VERSION: string = core.getInput('AZURE_OPENAI_API_VERSION');
 const AZURE_OPENAI_DEPLOYMENT: string = core.getInput('AZURE_OPENAI_DEPLOYMENT');
+const OUTPUT_LANGUAGE: string = core.getInput('OUTPUT_LANGUAGE');
 
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
@@ -91,6 +92,7 @@ function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
+- Output language: ${OUTPUT_LANGUAGE}
 
 Review the following code diff in the file "${
     file.to
@@ -127,7 +129,7 @@ async function getAIResponse(prompt: string): Promise<Array<{
         {
           role: 'system',
           content: prompt,
-        },
+        }
       ],
     });
 
