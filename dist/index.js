@@ -53,6 +53,7 @@ const AZURE_OPENAI_ENDPOINT = core.getInput('AZURE_OPENAI_ENDPOINT');
 const AZURE_OPENAI_API_KEY = core.getInput('AZURE_OPENAI_API_KEY');
 const AZURE_OPENAI_API_VERSION = core.getInput('AZURE_OPENAI_API_VERSION');
 const AZURE_OPENAI_DEPLOYMENT = core.getInput('AZURE_OPENAI_DEPLOYMENT');
+const OUTPUT_LANGUAGE = core.getInput('output_language');
 const octokit = new rest_1.Octokit({ auth: GITHUB_TOKEN });
 const client = new openai_1.AzureOpenAI({
     endpoint: AZURE_OPENAI_ENDPOINT,
@@ -115,7 +116,7 @@ function createPrompt(file, chunk, prDetails) {
 - Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
 - Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
-- Write the comment in GitHub Markdown format.
+- Write the comment in GitHub Markdown format and ensure that the comments are in language code "${OUTPUT_LANGUAGE}".
 - Use the given description only for the overall context and only comment the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
 
@@ -150,7 +151,7 @@ function getAIResponse(prompt) {
                     {
                         role: 'system',
                         content: prompt,
-                    },
+                    }
                 ],
             });
             const res = ((_b = (_a = response.choices[0].message) === null || _a === void 0 ? void 0 : _a.content) === null || _b === void 0 ? void 0 : _b.trim()) || '{}';
