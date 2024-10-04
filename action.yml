@@ -16,6 +16,10 @@ inputs:
   AZURE_OPENAI_DEPLOYMENT:
     description: "Azure OpenAI deployment"
     required: true
+  output_language:
+    description: "Output language for the AI generated comments"
+    required: false
+    default: "en"
   exclude:
     description: "Glob patterns to exclude files from the diff analysis"
     required: false

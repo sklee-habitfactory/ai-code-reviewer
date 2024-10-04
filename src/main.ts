@@ -10,7 +10,7 @@ const AZURE_OPENAI_ENDPOINT: string = core.getInput('AZURE_OPENAI_ENDPOINT');
 const AZURE_OPENAI_API_KEY: string = core.getInput('AZURE_OPENAI_API_KEY');
 const AZURE_OPENAI_API_VERSION: string = core.getInput('AZURE_OPENAI_API_VERSION');
 const AZURE_OPENAI_DEPLOYMENT: string = core.getInput('AZURE_OPENAI_DEPLOYMENT');
-const OUTPUT_LANGUAGE: string = core.getInput('OUTPUT_LANGUAGE');
+const OUTPUT_LANGUAGE: string = core.getInput('output_language');
 
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
